@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace MyGame
 {
+
     public class Logic
     {
+        public  delegate void GameOver(string message);
+        public event GameOver Notify;
+        People people = new();
+        Bot bot = new();
         NumberCoordinats number = new();
         FileData fileData = new();
         int MyChip;
@@ -28,7 +33,7 @@ namespace MyGame
             int randA = Rand(1, 6);
             int randB = Rand(1, 6);
             int result = CubeAreEqual(randA, randB);
-             switch (result== 0)
+            switch (result == 0)
             {
                 case true:
                     {
@@ -46,20 +51,44 @@ namespace MyGame
                         }
                         break;
                     }
-                case false: if(result>EnemyTable)
+                case false: if (result > EnemyTable)
                     {
                         MyEnemyChip += result;
                         EnemyTable -= result;
                     }
-                else
+                    else
                     {
                         MyEnemyChip += EnemyTable;
                         EnemyTable -= EnemyTable;
                     }
                     break;
-               
+
             }
             fileData.FileD(MyChip, MyEnemyChip, MyTable, EnemyChip, MyChipWithEnemy, EnemyTable);
+           
+            End(people.Name,bot.Name);
+        }
+        public void End(string MyName, string EnemyName )
+        {
+
+           switch(MyTable+EnemyTable==0)
+            {
+                case true:
+                    if (MyChip + MyEnemyChip > MyChipWithEnemy + EnemyChip)
+                    {
+                        Notify.Invoke($"{MyName}");
+
+                    }
+                    else if (MyChip + MyEnemyChip < MyChipWithEnemy + EnemyChip)
+                    {
+                        Notify.Invoke($"{EnemyName}");
+                    }
+                    Console.WriteLine("Game over");
+                    break;
+                default: Notify.Invoke("0");break;
+            }
+           
+          
         }
         public Logic(int a)
         {
@@ -69,9 +98,43 @@ namespace MyGame
             EnemyChip = number.NumCoord('A', 'a');
             MyChipWithEnemy = number.NumCoord('B', 'b');
             EnemyTable = number.NumCoord('C', 'c');
-          
+            int randA = Rand(1, 6);
+            int randB = Rand(1, 6);
+            int result = CubeAreEqual(randA, randB);
+            switch (result == 0)
+            {
+                case true:
+                    {
+                        int a1 = CubeNoEqual(randA, randB);
+                        switch (MyTable > a1)
+                        {
+                            case true:
+                                MyChip += a1;
+                                MyTable -= a1;
+                                break;
+                            case false:
+                                MyChip += MyTable;
+                                MyTable -= MyTable;
+                                break;
+                        }
+                        break;
+                    }
+                case false:
+                    if (result > EnemyTable)
+                    {
+                        MyEnemyChip += result;
+                        EnemyTable -= result;
+                    }
+                    else
+                    {
+                        MyEnemyChip += EnemyTable;
+                        EnemyTable -= EnemyTable;
+                    }
+                    break;
 
-            //fileData.FileD();
+            }
+            fileData.FileD( EnemyChip, MyChipWithEnemy, EnemyTable,MyChip, MyEnemyChip, MyTable);
+            End(bot.Name,people.Name);            
         }
         public int Rand(int a, int b)
         {
