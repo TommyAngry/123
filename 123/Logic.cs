@@ -164,17 +164,32 @@ namespace MyGame
         }
         public int CubeNoEqual(int a,int b)
         {
-            if(a>b)
+            int c;
+            if (a < 0 || b < 0)
             {
-                return a - b; 
+                new Exception("Введите корректное число");
+                return -100;
             }
-            else
+            else if (a>b)
             {
-                return b - a;
+                return c=a - b; 
             }
+            else if(a<b)
+            {
+               
+                return  c = b - a;
+            }
+          
+            return -100;
+
         }
         public int CubeAreEqual(int a,int b)
         {
+            if(a<0||b<0)
+            {
+               
+                return -100;
+            }
             switch(a==b)
             {
                 case true:return a;
