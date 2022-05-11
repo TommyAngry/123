@@ -9,7 +9,7 @@ namespace MyGame
 
     public class Logic
     {
-        public  delegate void GameOver(string message);
+        public  delegate string GameOver(string message);
         public event GameOver Notify;
         People people = new();
         Bot bot = new();
@@ -68,29 +68,47 @@ namespace MyGame
            
             End(people.Name,bot.Name);
         }
-        public void End(string MyName, string EnemyName )
+        public void End(string MyName, string EnemyName)
         {
-
-           switch(MyTable+EnemyTable==0)
+            switch (MyTable + EnemyTable == 0)
             {
                 case true:
                     if (MyChip + MyEnemyChip > MyChipWithEnemy + EnemyChip)
                     {
-                        Notify.Invoke($"{MyName}");
+                        Console.WriteLine($"{MyName}-победитель");
 
                     }
                     else if (MyChip + MyEnemyChip < MyChipWithEnemy + EnemyChip)
                     {
-                        Notify.Invoke($"{EnemyName}");
+                        Console.WriteLine($"{EnemyName}-победитель");
                     }
                     Console.WriteLine("Game over");
                     break;
-                default: Notify.Invoke("0");break;
-            }
-           
-          
-        }
-        public Logic(int a)
+                default: Console.WriteLine("Далее"); break;
+            }  }
+            //public void End(string MyName, string EnemyName )
+            //{
+
+            //   switch(MyTable+EnemyTable==0)
+            //    {
+            //        case true:
+            //            if (MyChip + MyEnemyChip > MyChipWithEnemy + EnemyChip)
+            //            {
+            //                Notify.Invoke($"{MyName}");
+
+            //            }
+            //            else if (MyChip + MyEnemyChip < MyChipWithEnemy + EnemyChip)
+            //            {
+            //                Notify.Invoke($"{EnemyName}");
+            //            }
+            //            Console.WriteLine("Game over");
+            //            break;
+            //        default: Console.WriteLine("Далее"); break;
+            //    }
+
+
+            //}
+            public Logic(int a)
         {
             MyChip = number.NumCoord('D', 'd');
             MyEnemyChip = number.NumCoord('E', 'e');

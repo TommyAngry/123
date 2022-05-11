@@ -13,7 +13,7 @@ namespace MyGame
             {
                 Logic logic = new();
                 Console.WriteLine("1");
-                logic.Notify += Logic_Notify;
+                //logic.Notify += Logic_Notify;
                 Console.ReadLine();
                 Logic logic1 = new Logic(1);
                 Console.WriteLine("2");
@@ -22,16 +22,16 @@ namespace MyGame
             
         }
 
-        private static void Logic_Notify(string message)
-        {
-            if(message.Equals("0"))
-            Console.WriteLine("Продолжаем игру");
-            else
-            {
-                Console.WriteLine(message+"-Победитель");
-            }
-        }
+        //private static string Logic_Notify(string message)
+        //{
+        //    if(message.Equals("0"))
+        //   return"Продолжаем игру";
+        //    else
+        //    {
+        //       return$"{message}-Победитель";
+        //    }
+        //}
 
-        void DisplayMessage(string message) => Console.WriteLine(message);
+       
     }
 }
