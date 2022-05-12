@@ -18,7 +18,7 @@ namespace MyGame.Tests
             int b = 0;
             int expected = 1;
             Logic logic = new Logic();
-
+          
             var actual = logic.CubeNoEqual(a, b);
 
             Assert.AreEqual(expected, actual);

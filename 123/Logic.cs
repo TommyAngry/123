@@ -86,7 +86,10 @@ namespace MyGame
             End(people.Name,bot.Name);
            
         }
-
+        /// <summary>
+        /// В случае отсутствия фишек на столе вывод на консоль
+        /// </summary>
+        /// <param name="a"></param>
         private void NoTableChips(int a )
         {
             if(a==0)
@@ -101,7 +104,12 @@ namespace MyGame
 
         }
         int endwhile;
-        public void End(string MyName, string EnemyName)
+        /// <summary>
+        /// отвечает за логику вывода на экран после того или иного действия
+        /// </summary>
+        /// <param name="MyName"></param>
+        /// <param name="EnemyName"></param>
+         void End(string MyName, string EnemyName)
         {
             switch (MyTable + EnemyTable == 0)
             {
@@ -125,6 +133,10 @@ namespace MyGame
                 default: Console.WriteLine($"Фишек у {MyName}своего цвета-{MyChip},вражеского-{MyEnemyChip}\nФИШЕК У {EnemyName} СВОИХ - {EnemyChip},вРАЖЕСКИХ - {MyChipWithEnemy}"); endwhile = 0; break;
             }  }
 
+        /// <summary>
+        /// отвечает за закрытие цикла(остановки игры)
+        /// </summary>
+        /// <returns></returns>
         public int EndWhile()
         {
             return endwhile;
@@ -194,7 +206,7 @@ namespace MyGame
             End(bot.Name,people.Name);
           
         }
-        public int Rand(int a, int b)
+        protected int Rand(int a, int b)
         {
             Random random = new Random();
 
