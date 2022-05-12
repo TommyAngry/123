@@ -9,8 +9,7 @@ namespace MyGame
 
     public class Logic
     {
-        public  delegate string GameOver(string message);
-        public event GameOver Notify;
+       
         People people = new();
         Bot bot = new();
         NumberCoordinats number = new();
@@ -30,44 +29,78 @@ namespace MyGame
             EnemyChip = number.NumCoord('D', 'd');
             MyChipWithEnemy = number.NumCoord('E', 'e');
             EnemyTable = number.NumCoord('F', 'f');
-            int randA = Rand(1, 6);
-            int randB = Rand(1, 6);
+            int randA = Rand(1, 5);
+            int randB = Rand(1, 5);
             int result = CubeAreEqual(randA, randB);
             switch (result == 0)
             {
                 case true:
                     {
                         int a = CubeNoEqual(randA, randB);
-                        switch (MyTable > a)
+                        if(MyTable>0)
                         {
-                            case true:
-                                MyChip += a;
-                                MyTable -= a;
-                                break;
-                            case false:
-                                MyChip += MyTable;
-                                MyTable -= MyTable;
-                                break;
+                            switch (MyTable > a||MyTable==a)
+                            {
+                                case true:
+                                    MyChip += a;
+                                    MyTable -= a;
+                                    break;
+                                case false:
+                                    MyChip += MyTable;
+                                    MyTable -= MyTable;
+                                    break;
+                            }
+                          
+                        }
+                        else
+                        {
+                            NoTableChips(0);
                         }
                         break;
+
                     }
-                case false: if (result > EnemyTable)
+                case false: 
+                    if(EnemyTable>0||EnemyTable==result)
                     {
-                        MyEnemyChip += result;
-                        EnemyTable -= result;
+                        if (result > EnemyTable)
+                        {
+                            MyEnemyChip += EnemyTable;
+                            EnemyTable -= result;
+                        }
+                        else
+                        {
+                            MyEnemyChip += EnemyTable;
+                            EnemyTable -= EnemyTable;
+                        }
                     }
                     else
                     {
-                        MyEnemyChip += EnemyTable;
-                        EnemyTable -= EnemyTable;
+                        NoTableChips(1);
                     }
+                 
                     break;
 
             }
             fileData.FileD(MyChip, MyEnemyChip, MyTable, EnemyChip, MyChipWithEnemy, EnemyTable);
            
             End(people.Name,bot.Name);
+           
         }
+
+        private void NoTableChips(int a )
+        {
+            if(a==0)
+            {
+                Console.WriteLine("На столе нету фишек своего цвета\n ход за противником");
+            }
+            if (a == 1)
+            {
+                Console.WriteLine("На столе нету фишек другого цвета\n ход за противником");
+            }
+
+
+        }
+        int endwhile;
         public void End(string MyName, string EnemyName)
         {
             switch (MyTable + EnemyTable == 0)
@@ -75,40 +108,29 @@ namespace MyGame
                 case true:
                     if (MyChip + MyEnemyChip > MyChipWithEnemy + EnemyChip)
                     {
-                        Console.WriteLine($"{MyName}-победитель");
-
+                        Console.WriteLine($"{MyName}-победитель-фишек у него своих{MyChip}\n чужих {MyEnemyChip}");
+                       endwhile=1;
                     }
                     else if (MyChip + MyEnemyChip < MyChipWithEnemy + EnemyChip)
                     {
-                        Console.WriteLine($"{EnemyName}-победитель");
+                        Console.WriteLine($"{EnemyName}-победитель-фишек у него своих{EnemyChip}\n чужих {MyChipWithEnemy}");
+                        endwhile = 1;
                     }
-                    Console.WriteLine("Game over");
+                    else if (MyChip + MyEnemyChip == MyChipWithEnemy + EnemyChip)
+                    {
+                        Console.WriteLine($"{EnemyName}--фишек у него своих{EnemyChip}\n чужих {MyChipWithEnemy }\n ничья");
+                        endwhile = 1;
+                    }
                     break;
-                default: Console.WriteLine("Далее"); break;
+                default: Console.WriteLine($"Фишек у {MyName}своего цвета-{MyChip},вражеского-{MyEnemyChip}\nФИШЕК У {EnemyName} СВОИХ - {EnemyChip},вРАЖЕСКИХ - {MyChipWithEnemy}"); endwhile = 0; break;
             }  }
-            //public void End(string MyName, string EnemyName )
-            //{
 
-            //   switch(MyTable+EnemyTable==0)
-            //    {
-            //        case true:
-            //            if (MyChip + MyEnemyChip > MyChipWithEnemy + EnemyChip)
-            //            {
-            //                Notify.Invoke($"{MyName}");
+        public int EndWhile()
+        {
+            return endwhile;
+        }
 
-            //            }
-            //            else if (MyChip + MyEnemyChip < MyChipWithEnemy + EnemyChip)
-            //            {
-            //                Notify.Invoke($"{EnemyName}");
-            //            }
-            //            Console.WriteLine("Game over");
-            //            break;
-            //        default: Console.WriteLine("Далее"); break;
-            //    }
-
-
-            //}
-            public Logic(int a)
+        public Logic(int a)
         {
             MyChip = number.NumCoord('D', 'd');
             MyEnemyChip = number.NumCoord('E', 'e');
@@ -124,35 +146,53 @@ namespace MyGame
                 case true:
                     {
                         int a1 = CubeNoEqual(randA, randB);
-                        switch (MyTable > a1)
+                        if (MyTable > 0)
                         {
-                            case true:
-                                MyChip += a1;
-                                MyTable -= a1;
-                                break;
-                            case false:
-                                MyChip += MyTable;
-                                MyTable -= MyTable;
-                                break;
+                            switch (MyTable > a1||MyTable==a1)
+                            {
+                                case true:
+                                    MyChip += a1;
+                                    MyTable -= a1;
+                                    break;
+                                case false:
+                                    MyChip += MyTable;
+                                    MyTable -= MyTable;
+                                    break;
+                            }
+
+                        }
+                        else
+                        {
+                            NoTableChips(0);
                         }
                         break;
+
                     }
                 case false:
-                    if (result > EnemyTable)
+                    if (EnemyTable > 0||EnemyTable==result)
                     {
-                        MyEnemyChip += result;
-                        EnemyTable -= result;
+                        if (result > EnemyTable)
+                        {
+                            MyEnemyChip += EnemyTable;
+                            EnemyTable -= result;
+                        }
+                        else
+                        {
+                            MyEnemyChip += EnemyTable;
+                            EnemyTable -= EnemyTable;
+                        }
                     }
                     else
                     {
-                        MyEnemyChip += EnemyTable;
-                        EnemyTable -= EnemyTable;
+                        NoTableChips(1);
                     }
+
                     break;
 
             }
             fileData.FileD( EnemyChip, MyChipWithEnemy, EnemyTable,MyChip, MyEnemyChip, MyTable);
-            End(bot.Name,people.Name);            
+            End(bot.Name,people.Name);
+          
         }
         public int Rand(int a, int b)
         {

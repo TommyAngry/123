@@ -4,6 +4,9 @@ namespace MyGame
 {
     class Program
     {
+        Bot bot = new();
+        People people = new();
+       
         static void Main(string[] args)
         {
             
@@ -13,25 +16,22 @@ namespace MyGame
             {
                 Logic logic = new();
                 Console.WriteLine("1");
-                //logic.Notify += Logic_Notify;
+               
                 Console.ReadLine();
+                if (logic.EndWhile() == 1)              
+                    break;
+
                 Logic logic1 = new Logic(1);
                 Console.WriteLine("2");
+                
                 Console.ReadLine();
+                if (logic.EndWhile() == 1)
+                    break;
             }
             
         }
 
-        //private static string Logic_Notify(string message)
-        //{
-        //    if(message.Equals("0"))
-        //   return"Продолжаем игру";
-        //    else
-        //    {
-        //       return$"{message}-Победитель";
-        //    }
-        //}
-
+      
        
     }
 }
