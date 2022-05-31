@@ -130,7 +130,7 @@ namespace MyGame
                         endwhile = 1;
                     }
                     break;
-                default: Console.WriteLine($"Фишек у {MyName}своего цвета-{MyChip},вражеского-{MyEnemyChip}\nФИШЕК У {EnemyName} СВОИХ - {EnemyChip},вРАЖЕСКИХ - {MyChipWithEnemy}"); endwhile = 0; break;
+                default: Console.WriteLine($"Фишек у {MyName}своего цвета-{MyChip},вражеского-{MyEnemyChip}\nфишек {EnemyName} своих - {EnemyChip},вражеских - {MyChipWithEnemy}"); endwhile = 0; break;
             }  }
 
         /// <summary>
